@@ -5,8 +5,6 @@ const CardFooter = styled.footer`
     justify-content: center;
     border-top: 2px solid #ccc;
     padding: 2rem 0 1.5rem;
-    position: absolute;
-    bottom: 0;
     width: 100%;
     background-color: white;
     `

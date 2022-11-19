@@ -5,7 +5,7 @@ import Account from "../components/Account"
 const Main = styled.main`
     flex: 1;
     background-color: #12002b;
-    height: 90vh;
+    height: 105vh;
     `
 
 const AccountH1 = styled.h1`
