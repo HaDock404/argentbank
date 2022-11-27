@@ -41,11 +41,16 @@ const CardH2 = styled.h2`
     `
 
 function User() {
+    //console.log(response)
+    //console.log(response.data.body.firstName)
+    //console.log(name)
+    const test = localStorage.getItem('firstName')
+
     return (
         <Main>
             <HeaderAccount>
-                <AccountH1>Welcome back <br/>Tony Jarvis!</AccountH1>
-                <EditButton>Edit Name</EditButton>
+                <AccountH1>Welcome back <br/>{test} test!</AccountH1>
+                <EditButton>Edit Name</EditButton> 
             </HeaderAccount>
             <CardH2>Accounts</CardH2>
             <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" description="Available Balance"/>

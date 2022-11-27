@@ -1,5 +1,10 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+import { Token, userData, nameUser } from "../pages/Api";
+import PostToken from "../pages/Api";
 
 const CardSignInContent = styled.section`
     box-sizing: border-box;
@@ -32,7 +37,7 @@ const CardInputRemember = styled.div`
 const CardLabelRemember = styled.label`
     margin-left: 0.25rem;
     `
-const CardButton = styled(Link)`
+const CardButton = styled.button`
     display: block;
     width: 100%;
     padding: 8px;
@@ -44,29 +49,69 @@ const CardButton = styled(Link)`
     color: #fff;
     `
 
+function Form () {
 
-function Form() {
-    return (
-        <CardSignInContent>
-            <i class="fa fa-user-circle size"></i>
-            <h1>Sign In</h1>
-            <form>
-                <CardInputWrapper>
-                    <CardLabel for="username">Username</CardLabel>
-                    <CardInput type="text" id="username"/>
-                </CardInputWrapper>
-                <CardInputWrapper>
-                    <CardLabel for="password">Password</CardLabel>
-                    <CardInput type="text" id="password"/>
-                </CardInputWrapper>
-                <CardInputRemember>
-                    <input type="checkbox" id="remember-me"/>
-                    <CardLabelRemember for="remember-me">Remember me</CardLabelRemember>
-                </CardInputRemember>
-                <CardButton to="/user">Sign In</CardButton>
-            </form>
-        </CardSignInContent>
-    )
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const navigate = useNavigate();
+
+    const handleChange = event => {
+        setEmail(event.target.value );
+    }
+    const handleChange2 = event => {
+        setPassword(event.target.value );
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        const user = {
+            email: email,
+            password: password
+        }
+
+        axios.post("http://localhost:3001/api/v1/user/login", 
+                user
+            )
+            .then (async function(response) {
+                const loadingToken = await Token(response)
+                if(loadingToken) {
+                    const retrievedData = await PostToken(userData.token)
+                    if(retrievedData) {
+                        localStorage.setItem('firstName', nameUser)
+                        //console.log(nameUser)
+                        return navigate('/user')
+                    }
+                }
+                
+            })
+            .catch((err) => console.log(err));
+        
+     };
+
+        return (
+            <CardSignInContent>
+                <i className="fa fa-user-circle size"></i>
+                <h1>Sign In</h1>
+                <form  onSubmit={handleSubmit}>
+                    <CardInputWrapper>
+                        <CardLabel htmlFor="username">Username</CardLabel>
+                        <CardInput type="text" id="username"  onChange={handleChange}/>
+                    </CardInputWrapper>
+                    <CardInputWrapper>
+                        <CardLabel htmlFor="password">Password</CardLabel>
+                        <CardInput type="text" id="password"  onChange={handleChange2}/>
+                    </CardInputWrapper>
+                    <CardInputRemember>
+                        <input type="checkbox" id="remember-me"/>
+                        <CardLabelRemember htmlFor="remember-me">Remember me</CardLabelRemember>
+                    </CardInputRemember>
+                    <CardButton type="submit">Sign In</CardButton>
+                </form>
+            </CardSignInContent>
+        )
+    
+    
 }
 
 export default Form

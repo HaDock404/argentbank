@@ -50,7 +50,7 @@ function Header() {
                 <CardTitle/>
             </HomeLink>
             <SignInLink to="/sign-in">
-                <i class="fa fa-user-circle margin"></i>
+                <i className="fa fa-user-circle margin"></i>
                 Sign In
             </SignInLink>
         </MainNav>
