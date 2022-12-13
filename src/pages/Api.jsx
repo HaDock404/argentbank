@@ -1,12 +1,12 @@
 import axios from "axios"
 
 export let DataUser = {}
-export let nameUser = '';
 export const userData = {
     token: ""
 }
 
 export function Token(response) {
+    localStorage.setItem('Token', response.data.body.token)
     return userData.token = response.data.body.token
     
 }
@@ -24,7 +24,7 @@ function PostToken(token) {
                 headers
             })
             .then(function(response) {
-                return nameUser = response.data.body.firstName
+                return DataUser = response
             })
             .catch((err) => console.log(err));
     

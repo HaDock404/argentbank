@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-import { Token, userData, nameUser } from "../pages/Api";
+import { Token, userData, DataUser } from "../pages/Api";
 import PostToken from "../pages/Api";
 
 const CardSignInContent = styled.section`
@@ -78,8 +78,9 @@ function Form () {
                 if(loadingToken) {
                     const retrievedData = await PostToken(userData.token)
                     if(retrievedData) {
-                        localStorage.setItem('firstName', nameUser)
-                        //console.log(nameUser)
+                        console.log(DataUser)
+                        localStorage.setItem('firstName', DataUser.data.body.firstName)
+                        localStorage.setItem('lastName', DataUser.data.body.lastName)
                         return navigate('/user')
                     }
                 }
