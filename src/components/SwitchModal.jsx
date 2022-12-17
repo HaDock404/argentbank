@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-import { userData, DataUser } from "../pages/Api";
+import { userData } from "../pages/Api";
 import PostToken from "../pages/Api";
 
 import { ModalSelector } from '../store/ModalSelector'
@@ -51,12 +51,20 @@ const CardSubmit = styled.button`
     width: 50%;
     margin-top: 20px;
 `
+let action = 0;
 
-export function ButtonModal() {
+export function ButtonModal(props) {
 
     const modal = useSelector(ModalSelector)
     const dispatch = useDispatch()
     const navigate = useNavigate();
+
+    if(action === 0) {
+        modal.name = props.firstName
+        modal.lastname = props.lastName
+        modal.Token = localStorage.Token
+    }
+    action++;
 
     const onToggle = useCallback((modal) => {
         dispatch(toogleModalAction(modal))
@@ -87,14 +95,16 @@ export function ButtonModal() {
             {
             headers
             })
-            .then (async function(response) {  
+            .then (async function(response) {
+                console.log(userData)
                 const retrievedData = await PostToken(userData.token)
                 if(retrievedData) {
                     localStorage.setItem('firstName', modal.name)
                     localStorage.setItem('lastName', modal.lastname)
                     modal.open = false;
+                    action = 0;
                     window.location.reload(false);
-                    return navigate(`/user`)
+                    return navigate(`/user/${modal.name}`)
                 }
                               
             })

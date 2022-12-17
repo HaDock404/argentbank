@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Logo from '../assets/argentBankLogo.png'
 
+export const loginX = 'In'
+
 const MainNav = styled.nav`
     display: flex;
     justify-content: space-between;
@@ -42,16 +44,36 @@ const CardTitle = styled.h1`
     white-space: nowrap !important;
     `
 
+
 function Header() {
+    
+    const token = localStorage.getItem('Token')
+    let login = ''
+
+      if (token !== null) {
+        login = 'Out'
+      } else if (token === null) {
+        login = 'In'
+      }
+   
+    const setLogin = () => {
+        if (token !== null) {
+            login = 'In'
+            localStorage.clear()
+          } else if (token === null) {
+            login = 'In'
+          }
+    }
+
     return (
         <MainNav>
             <HomeLink to="/">
                 <HomeImage src={Logo} alt="Argent Bank Logo"/>
                 <CardTitle/>
             </HomeLink>
-            <SignInLink to="/sign-in">
+            <SignInLink onClick={setLogin} to="/sign-in">
                 <i className="fa fa-user-circle margin"></i>
-                Sign In
+                Sign {login}
             </SignInLink>
         </MainNav>
     )

@@ -2,7 +2,7 @@ import axios from "axios"
 
 export let DataUser = {}
 export const userData = {
-    token: ""
+    token: localStorage.getItem('Token')
 }
 
 export function Token(response) {

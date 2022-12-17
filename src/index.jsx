@@ -16,7 +16,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
-import Test from './pages/Test'
+import Error from './pages/Error';
+
 //import PersonList from './api/test';
 //import { DataUser } from './components/Grosgrostest';
 
@@ -25,12 +26,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <GlobalStyle/>
-    <Header/>
     <Routes>
-          <Route path="/" element={<><Home/></>}/>
-          <Route path="/sign-in" element={<><SignIn/></>}/>
-          <Route path="/user" element={<><User/></>}/>
-          <Route path="/test" element={<><Test/></>}/>
+          <Route path="/" element={<><Header/><Home/></>}/>
+          <Route path="/sign-in" element={<><Header/><SignIn/></>}/>
+          <Route path="/user/:id" element={<><Header/><User/></>}/>
+          <Route path="*" element={<><Header/><Error/></>}/>
     </Routes>
     <Footer/>
   </BrowserRouter>

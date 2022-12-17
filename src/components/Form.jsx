@@ -78,10 +78,9 @@ function Form () {
                 if(loadingToken) {
                     const retrievedData = await PostToken(userData.token)
                     if(retrievedData) {
-                        console.log(DataUser)
                         localStorage.setItem('firstName', DataUser.data.body.firstName)
                         localStorage.setItem('lastName', DataUser.data.body.lastName)
-                        return navigate('/user')
+                        return navigate(`/user/${DataUser.data.body.firstName}`)
                     }
                 }
                 

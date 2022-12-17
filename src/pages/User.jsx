@@ -42,7 +42,7 @@ function User(state) {
             <HeaderAccount>
                 <AccountH1>Welcome back <br/>{firstName} {lastName}!</AccountH1>
                 <Provider store={store}>
-                    <ButtonModal />
+                    <ButtonModal firstName={firstName} lastName={lastName}/>
                 </Provider>
             </HeaderAccount>
             <CardH2>Accounts</CardH2>
